@@ -15,7 +15,7 @@ function sendMessage() {
 }
 
 function onReceivedMessage(sender, receiver, msg) {
-    //console.log("-- "+userName+" -- Received a message:")
+
     console.log("sender:" + sender + " receiver:" + receiver + " msg:" + msg)
 
     if (user1.userName === sender) {
@@ -28,6 +28,8 @@ function onReceivedMessage(sender, receiver, msg) {
         user1.messagesAlias += "<b><font color=\"blue\">" + sender + ":</font> "
                 + msg + "</font></b>\n"
     }
+
+    // move messages Text scroller to the bottom by one step for both users' views
     user1.messagesScrollBarAlias.increase()
     user2.messagesScrollBarAlias.increase()
 }
