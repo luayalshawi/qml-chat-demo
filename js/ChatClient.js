@@ -1,6 +1,3 @@
-
-//import io.qt.challenge.chatserver 1.0
-function func() {}
 function sendMessage() {
     // get the message text value
     var msg = msgInput.text
@@ -15,4 +12,22 @@ function sendMessage() {
     } else {
         console.log("Please send non-empty text!")
     }
+}
+
+function onReceivedMessage(sender, receiver, msg) {
+    //console.log("-- "+userName+" -- Received a message:")
+    console.log("sender:" + sender + " receiver:" + receiver + " msg:" + msg)
+
+    if (user1.userName === sender) {
+        user1.messagesAlias += "<b><font color=\"green\">" + sender
+                + ":</font> " + msg + "</font></b>\n"
+        user2.messagesAlias += "<b><font color=\"blue\">" + sender + ":</font> "
+                + msg + "</font></b>\n"
+    } else {
+        user2.messagesAlias += "<b><font color=\"green\">" + sender + ":</font> " + msg + "</b>\n"
+        user1.messagesAlias += "<b><font color=\"blue\">" + sender + ":</font> "
+                + msg + "</font></b>\n"
+    }
+    user1.messagesScrollBarAlias.increase()
+    user2.messagesScrollBarAlias.increase()
 }
