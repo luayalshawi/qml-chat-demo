@@ -1,37 +1,49 @@
 import QtQuick 2.7
-import QtQuick.Controls 2.0
+import QtQuick.Controls 1.4
 import QtQuick.Layouts 1.3
+import challenge.chatserver 1.0
+import "js/ChatClient.js" as ChatClient
 
 ApplicationWindow {
     visible: true
     width: 640
     height: 480
-    title: qsTr("Hello World")
+    title: qsTr("Chat Application")
+    id: root
 
-    SwipeView {
-        id: swipeView
-        anchors.fill: parent
-        currentIndex: tabBar.currentIndex
+    property var usersArray: [{
+            userId: 1,
+            userName: "Luay"
+        }, {
+            userId: 2,
+            userName: "Robot"
+        }]
 
-        Page1 {
-        }
-
-        Page {
-            Label {
-                text: qsTr("Second page")
-                anchors.centerIn: parent
-            }
+    ChatServer {
+        id: chatserver
+        onUpdate: function (sender, receiver, msg) {
+            ChatClient.onReceivedMessage(sender, receiver, msg)
         }
     }
 
-    footer: TabBar {
-        id: tabBar
-        currentIndex: swipeView.currentIndex
-        TabButton {
-            text: qsTr("First")
-        }
-        TabButton {
-            text: qsTr("Second")
+    Rectangle {
+        id: mainView
+        width: parent.width
+        height: parent.height
+        color: "#ffb"
+        Column {
+            UserChatArea {
+                id: user1
+                color: "white"
+                userName: usersArray[0].userName
+                otherUser: usersArray[1].userName
+            }
+            UserChatArea {
+                id: user2
+                color: "white"
+                userName: usersArray[1].userName
+                otherUser: usersArray[0].userName
+            }
         }
     }
 }
